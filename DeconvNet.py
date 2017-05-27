@@ -56,7 +56,7 @@ class DeconvNet:
         return self.prediction.eval(session=self.session, feed_dict={image: [image]})[0]
 
 
-    def train(self, train_stage=1, training_steps=1000, restore_session=False, learning_rate=1e-6):
+    def train(self, train_stage=1, training_steps=10000, restore_session=False, learning_rate=1e-6):
         if restore_session:
             step_start = restore_session()
         else:
