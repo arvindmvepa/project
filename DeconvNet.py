@@ -72,8 +72,7 @@ class DeconvNet:
             random_line = random.choice(trainset)
             image_file = random_line.split(' ')[0]
             ground_truth_file = random_line.split(' ')[1]
-            image = np.float32(plt.imread('data' + image_file))
-            image = image[..., ::-1] 
+            image = np.asarray(Image.open('data' + image_file))
             ground_truth = np.asarray(Image.open('data' + ground_truth_file[:-1]).convert('L'))
             #ground_truth = ground_truth[..., ::-1] 
             # norm to 21 classes [0-20] (see paper)
