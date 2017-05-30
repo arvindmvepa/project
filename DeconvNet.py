@@ -74,6 +74,10 @@ class DeconvNet:
             image = np.float32(cv2.imread('data' + image_file))
             ground_truth = cv2.imread('data' + ground_truth_file[:-1], cv2.IMREAD_GRAYSCALE)
             # norm to 21 classes [0-20] (see paper)
+            if ground_truth == None:
+                print(image_file)
+                print(ground_truth_file)
+                print(random_line)
             ground_truth = (ground_truth / 255) * 20
             print('run train step: '+str(i))
             start = time.time()
