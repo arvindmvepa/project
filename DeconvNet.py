@@ -62,7 +62,7 @@ class DeconvNet:
             step_start = 0
 
         if train_stage == 1:
-            trainset = open('data/stage_1_train_imgset/train.txt').readlines()
+            trainset = open('data/trainingTest.txt').readlines()
         else:
             trainset = open('data/stage_2_train_imgset/train.txt').readlines()
 
