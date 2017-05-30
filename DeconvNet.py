@@ -5,8 +5,7 @@ import time
 import wget
 import tarfile
 import numpy as np
-import matplotlib.pyplot as plt
-from PIL import Image
+import cv2
 
 
 class DeconvNet:
@@ -56,7 +55,7 @@ class DeconvNet:
         return self.prediction.eval(session=self.session, feed_dict={image: [image]})[0]
 
 
-    def train(self, train_stage=1, training_steps=10000, restore_session=False, learning_rate=1e-6):
+    def train(self, train_stage=1, training_steps=1000, restore_session=False, learning_rate=1e-6):
         if restore_session:
             step_start = restore_session()
         else:
@@ -72,9 +71,8 @@ class DeconvNet:
             random_line = random.choice(trainset)
             image_file = random_line.split(' ')[0]
             ground_truth_file = random_line.split(' ')[1]
-            image = np.asarray(Image.open('data' + image_file))
-            ground_truth = np.asarray(Image.open('data' + ground_truth_file[:-1]).convert('L'))
-            #ground_truth = ground_truth[..., ::-1] 
+            image = np.float32(cv2.imread('data' + image_file))
+            ground_truth = cv2.imread('data' + ground_truth_file[:-1], cv2.IMREAD_GRAYSCALE)
             # norm to 21 classes [0-20] (see paper)
             ground_truth = (ground_truth / 255) * 20
             print('run train step: '+str(i))
